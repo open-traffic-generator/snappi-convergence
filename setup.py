@@ -16,16 +16,18 @@ with open(os.path.join(base_dir, "readme.md")) as fd:
     long_description = fd.read()
 
 openapiart.OpenApiArt(
-    api_files=["./models-convergence/api/info.yaml", "./models-convergence/api/api.yaml"],
+    api_files=["models-convergence/api/info.yaml", "models-convergence/api/api.yaml"],
     python_module_name=pkg_name,
     protobuf_file_name=pkg_name,
     protobuf_package_name="snappi.convergence",
-    output_dir="./artifacts",
+    output_dir="artifacts",
 )
 
 # remove unwanted files
+if os.path.exists(pkg_name):
+    shutil.rmtree(pkg_name, ignore_errors=True)
 shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
-shutil.rmtree("./artifacts", ignore_errors=True)
+shutil.rmtree("artifacts", ignore_errors=True)
 for name in os.listdir(pkg_name):
     path = os.path.join(pkg_name, name)
     if "pb2" in path:
