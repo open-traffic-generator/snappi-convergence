@@ -28,8 +28,10 @@ shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
 shutil.rmtree("./artifacts", ignore_errors=True)
 for name in os.listdir(pkg_name):
     path = os.path.join(pkg_name, name)
-    if name in path:
+    if "pb2" in path:
         os.remove(path)
+    else:
+        print(path + ' will be published')
 
 setuptools.setup(
     name=pkg_name,

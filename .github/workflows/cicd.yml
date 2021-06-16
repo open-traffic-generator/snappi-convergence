@@ -40,9 +40,9 @@ jobs:
       # - name: Run linter
       #   run: |
       #     python do.py lint
-      # - name: Run tests
-      #   run: |
-      #     python do.py test
+      - name: Run tests
+        run: |
+          python do.py test
       - name: Publish package
         if: steps.check_tag.outputs.exists == 'false'
         run: |
