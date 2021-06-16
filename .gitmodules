@@ -1,0 +1,3 @@
+[submodule "models-convergence"]
+	path = models-convergence
+	url = https://github.com/open-traffic-generator/models-convergence.git

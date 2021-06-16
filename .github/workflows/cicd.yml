@@ -1,0 +1,56 @@
+name: cicd
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6]
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          submodules: recursive
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Get package version
+        id: get_version
+        run: |
+          echo "::set-output name=version::v$(python do.py version)"
+      - name: Check tag for current version
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: check_tag
+        with:
+          tag: ${{ steps.get_version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: |
+          python do.py setup
+          python do.py init
+      - name: Build distribution and install package
+        run: |
+          python do.py install
+      - name: Run linter
+        run: |
+          python do.py lint
+      - name: Run tests
+        run: |
+          python do.py test
+      - name: Create release and publish artifacts
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          # tag: ${{ steps.get_version.outputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish package
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TWINE_USERNAME=${{ secrets.PYPI_USERNAME }} TWINE_PASSWORD=${{ secrets.PYPI_PASSWORD }} python do.py release
