@@ -27,6 +27,7 @@ jobs:
         run: |
           python do.py dist
       - name: Install package on clean env
+        run: |
           rm -rf .env
           python do.py setup
           python do.py install
