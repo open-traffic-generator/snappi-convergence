@@ -37,20 +37,20 @@ jobs:
       - name: Build distribution and install package
         run: |
           python do.py install
-      - name: Run linter
-        run: |
-          python do.py lint
+      # - name: Run linter
+      #   run: |
+      #     python do.py lint
       - name: Run tests
         run: |
           python do.py test
+      - name: Publish package
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TWINE_USERNAME=${{ secrets.PYPI_USERNAME }} TWINE_PASSWORD=${{ secrets.PYPI_PASSWORD }} python do.py release
       - name: Create release and publish artifacts
         if: steps.check_tag.outputs.exists == 'false'
         uses: ncipollo/release-action@v1
         with:
           artifacts: "dist/*"
-          # tag: ${{ steps.get_version.outputs.version }}
+          tag: ${{ steps.get_version.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish package
-        if: steps.check_tag.outputs.exists == 'false'
-        run: |
-          TWINE_USERNAME=${{ secrets.PYPI_USERNAME }} TWINE_PASSWORD=${{ secrets.PYPI_PASSWORD }} python do.py release
