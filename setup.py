@@ -17,14 +17,19 @@ with open(os.path.join(base_dir, "readme.md")) as fd:
 
 openapiart.OpenApiArt(
     api_files=["./models-convergence/api/info.yaml", "./models-convergence/api/api.yaml"],
-    python_module_name="snappi_convergence",
-    protobuf_file_name="snappi_convergence",
+    python_module_name=pkg_name,
+    protobuf_file_name=pkg_name,
     protobuf_package_name="snappi.convergence",
     output_dir="./artifacts",
 )
 
-shutil.copytree("./artifacts/snappi_convergence", "snappi_convergence")
+# remove unwanted files
+shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
 shutil.rmtree("./artifacts", ignore_errors=True)
+for name in os.listdir(pkg_name):
+    path = os.path.join(pkg_name, name)
+    if name in path:
+        os.remove(path)
 
 setuptools.setup(
     name=pkg_name,
@@ -53,7 +58,5 @@ setuptools.setup(
         'pyyaml',
         'jsonpath-ng',
         'typing',
-        'grpcio',
-        'grpcio-tools'
     ],
 )
