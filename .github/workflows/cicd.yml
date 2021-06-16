@@ -40,13 +40,13 @@ jobs:
       # - name: Run linter
       #   run: |
       #     python do.py lint
-      - name: Run tests
-        run: |
-          python do.py test
+      # - name: Run tests
+      #   run: |
+      #     python do.py test
       - name: Publish package
         if: steps.check_tag.outputs.exists == 'false'
         run: |
-          TWINE_USERNAME=${{ secrets.PYPI_USERNAME }} TWINE_PASSWORD=${{ secrets.PYPI_PASSWORD }} python do.py release
+          PYPI_USERNAME=${{ secrets.PYPI_USERNAME }} PYPI_PASSWORD=${{ secrets.PYPI_PASSWORD }} python do.py release
       - name: Create release and publish artifacts
         if: steps.check_tag.outputs.exists == 'false'
         uses: ncipollo/release-action@v1

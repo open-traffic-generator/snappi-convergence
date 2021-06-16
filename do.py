@@ -71,8 +71,8 @@ def release():
             py() + " -m pip install --upgrade twine",
             "{} -m twine upload -u {} -p {} dist/*".format(
                 py(),
-                os.environ["TWINE_USERNAME"],
-                os.environ["TWINE_PASSWORD"],
+                os.environ["PYPI_USERNAME"],
+                os.environ["PYPI_PASSWORD"],
             ),
         ]
     )
