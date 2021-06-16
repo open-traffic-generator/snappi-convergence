@@ -48,5 +48,12 @@ setuptools.setup(
     packages=[pkg_name],
     include_package_data=True,
     python_requires='>=2.7, <4',
-    install_requires=[],
+    install_requires=[
+        'requests',
+        'pyyaml',
+        'jsonpath-ng',
+        'typing',
+        'grpcio',
+        'grpcio-tools'
+    ],
 )
