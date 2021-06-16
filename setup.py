@@ -63,4 +63,7 @@ setuptools.setup(
         'jsonpath-ng',
         'typing',
     ],
+    extras_require={
+        'testing': ['pytest']
+    },
 )
