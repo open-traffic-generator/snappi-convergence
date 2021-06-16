@@ -2,4 +2,4 @@ flake8
 pytest
 pytype
 black
-openapiart
+openapiart==0.0.29
