@@ -48,18 +48,18 @@ def dist():
     clean()
     run(
         [
-            py() + " setup.py sdist bdist_wheel",
+            py() + " setup.py sdist bdist_wheel --universal",
         ]
     )
     print(os.listdir("dist"))
 
 
 def install():
-    dist()
+    wheel = "{}-{}-py2.py3-none-any.whl".format(*pkg())
     run(
         [
-            "{} -m pip install --upgrade --force-reinstall {}".format(
-                py(), os.path.join("dist", "*.whl")
+            "{} -m pip install --upgrade --force-reinstall {}[testing]".format(
+                py(), os.path.join("dist", wheel)
             ),
         ]
     )
