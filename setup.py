@@ -8,7 +8,7 @@ import openapiart
 import shutil
 
 pkg_name = "snappi_convergence"
-version = "0.0.3"
+version = "0.0.4"
 
 # read long description from readme.md
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -21,6 +21,7 @@ openapiart.OpenApiArt(
     protobuf_file_name=pkg_name,
     protobuf_package_name="snappi.convergence",
     output_dir="artifacts",
+    extension_prefix='snappi'
 )
 
 # remove unwanted files
