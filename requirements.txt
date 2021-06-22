@@ -1,3 +1,3 @@
 flake8
 pytype
-openapiart==0.0.31
+openapiart==0.0.32
