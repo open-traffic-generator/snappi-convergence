@@ -8,7 +8,7 @@ import openapiart
 import shutil
 
 pkg_name = "snappi_convergence"
-version = "0.0.27"
+version = "0.1.0"
 
 # read long description from readme.md
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -17,12 +17,10 @@ with open(os.path.join(base_dir, "readme.md")) as fd:
 
 openapiart.OpenApiArt(
     api_files=["models-convergence/api/info.yaml", "models-convergence/api/api.yaml"],
-    python_module_name=pkg_name,
-    protobuf_file_name=pkg_name,
-    protobuf_package_name="snappi.convergence",
-    output_dir="artifacts",
+    protobuf_name=pkg_name,
+    artifact_dir="artifacts",
     extension_prefix='snappi'
-)
+).GeneratePythonSdk(package_name=pkg_name)
 
 # remove unwanted files
 if os.path.exists(pkg_name):
