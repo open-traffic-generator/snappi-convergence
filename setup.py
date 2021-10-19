@@ -8,7 +8,7 @@ import openapiart
 import shutil
 
 pkg_name = "snappi_convergence"
-version = "0.1.1"
+version = "0.2.1"
 
 # read long description from readme.md
 base_dir = os.path.abspath(os.path.dirname(__file__))
