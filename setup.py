@@ -26,6 +26,10 @@ openapiart.OpenApiArt(
 if os.path.exists(pkg_name):
     shutil.rmtree(pkg_name, ignore_errors=True)
 shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
+shutil.copyfile(
+    os.path.join("artifacts", "requirements.txt"),
+    os.path.join(base_dir, "pkg_requires.txt")
+)
 shutil.rmtree("artifacts", ignore_errors=True)
 for name in os.listdir(pkg_name):
     path = os.path.join(pkg_name, name)
@@ -33,6 +37,11 @@ for name in os.listdir(pkg_name):
         os.remove(path)
     else:
         print(path + ' will be published')
+
+install_requires = []
+with open(os.path.join(base_dir, "pkg_requires.txt"), "r+") as fd:
+    install_requires = fd.readlines()
+    install_requires = install_requires[1:]
 
 setuptools.setup(
     name=pkg_name,
@@ -56,12 +65,13 @@ setuptools.setup(
     packages=[pkg_name],
     include_package_data=True,
     python_requires='>=2.7, <4',
-    install_requires=[
-        'requests',
-        'pyyaml',
-        'jsonpath-ng',
-        'typing',
-    ],
+    install_requires=install_requires,
+    # install_requires=[
+    #     'requests',
+    #     'pyyaml',
+    #     'jsonpath-ng',
+    #     'typing',
+    # ],
     extras_require={
         'testing': ['pytest']
     },
