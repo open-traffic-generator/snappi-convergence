@@ -8,7 +8,7 @@ import openapiart
 import shutil
 
 pkg_name = "snappi_convergence"
-version = "0.3.1"
+version = "0.3.2"
 
 # read long description from readme.md
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -27,7 +27,7 @@ if os.path.exists(pkg_name):
     shutil.rmtree(pkg_name, ignore_errors=True)
 shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
 shutil.copyfile(
-    os.path.join("artifacts", "requirements.txt"),
+    os.path.join(base_dir, "artifacts", "requirements.txt"),
     os.path.join(base_dir, "pkg_requires.txt")
 )
 shutil.rmtree("artifacts", ignore_errors=True)
