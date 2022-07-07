@@ -33,12 +33,12 @@ shutil.copyfile(
 shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
 
 shutil.rmtree("artifacts", ignore_errors=True)
-for name in os.listdir(pkg_name):
-    path = os.path.join(pkg_name, name)
-    if "pb2" in path:
-        os.remove(path)
-    else:
-        print(path + ' will be published')
+# for name in os.listdir(pkg_name):
+#     path = os.path.join(pkg_name, name)
+#     if "pb2" in path:
+#         os.remove(path)
+#     else:
+#         print(path + ' will be published')
 
 install_requires = []
 with open(os.path.join(base_dir, "pkg_requires.txt"), "r+") as fd:
