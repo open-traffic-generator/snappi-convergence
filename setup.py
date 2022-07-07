@@ -27,7 +27,7 @@ if os.path.exists(pkg_name):
     shutil.rmtree(pkg_name, ignore_errors=True)
 shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
 shutil.copyfile(
-    os.path.join(base_dir, "artifacts", "requirements.txt"),
+    "/home/runner/work/snappi-convergence/artifacts/requirements.txt",
     os.path.join(base_dir, "pkg_requires.txt")
 )
 shutil.rmtree("artifacts", ignore_errors=True)
