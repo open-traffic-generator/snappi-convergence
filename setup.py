@@ -25,7 +25,7 @@ openapiart.OpenApiArt(
 # remove unwanted files
 if os.path.exists(pkg_name):
     shutil.rmtree(pkg_name, ignore_errors=True)
-print(os.getcwd())
+print(os.listdir(os.path.join(os.getcwd(), "artifacts")))
 shutil.copyfile(
     os.path.join("artifacts", "requirements.txt"),
     os.path.join(base_dir, "pkg_requires.txt")
