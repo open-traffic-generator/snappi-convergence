@@ -8,7 +8,9 @@ import openapiart
 import shutil
 
 pkg_name = "snappi_convergence"
-version = "0.3.2"
+version = "0.3.4"
+model_protobuf_name = "otgconvergence"
+
 
 # read long description from readme.md
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -17,7 +19,7 @@ with open(os.path.join(base_dir, "readme.md")) as fd:
 
 openapiart.OpenApiArt(
     api_files=["models-convergence/api/info.yaml", "models-convergence/api/api.yaml"],
-    protobuf_name=pkg_name,
+    protobuf_name=model_protobuf_name,
     artifact_dir="artifacts",
     extension_prefix='snappi'
 ).GeneratePythonSdk(package_name=pkg_name)
