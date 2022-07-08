@@ -9,6 +9,7 @@ import shutil
 
 pkg_name = "snappi_convergence"
 version = "0.3.2"
+model_protobuf_name = "otg"
 
 # read long description from readme.md
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -17,7 +18,7 @@ with open(os.path.join(base_dir, "readme.md")) as fd:
 
 openapiart.OpenApiArt(
     api_files=["models-convergence/api/info.yaml", "models-convergence/api/api.yaml"],
-    protobuf_name=pkg_name,
+    protobuf_name=model_protobuf_name,
     artifact_dir="artifacts",
     extension_prefix='snappi'
 ).GeneratePythonSdk(package_name=pkg_name)
@@ -33,12 +34,9 @@ shutil.copyfile(
 shutil.copytree(os.path.join("artifacts", pkg_name), pkg_name)
 
 shutil.rmtree("artifacts", ignore_errors=True)
-# for name in os.listdir(pkg_name):
-#     path = os.path.join(pkg_name, name)
-#     if "pb2" in path:
-#         os.remove(path)
-#     else:
-#         print(path + ' will be published')
+for name in os.listdir(pkg_name):
+    path = os.path.join(pkg_name, name)
+    print(path + ' will be published')
 
 install_requires = []
 with open(os.path.join(base_dir, "pkg_requires.txt"), "r+") as fd:
