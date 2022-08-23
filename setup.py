@@ -8,7 +8,7 @@ import openapiart
 import shutil
 
 pkg_name = "snappi_convergence"
-version = "0.3.4"
+version = "0.4.1"
 model_protobuf_name = "otgconvergence"
 
 
