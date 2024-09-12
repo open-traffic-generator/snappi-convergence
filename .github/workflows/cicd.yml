@@ -8,7 +8,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        python-version: [3.6]
+        python-version: [3.12]
 
     steps:
       - name: Checkout source
@@ -47,11 +47,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
-        if: steps.check_tag.outputs.exists == 'false' && matrix.python-version == '3.6'
+        if: steps.check_tag.outputs.exists == 'false' && matrix.python-version == '3.12'
         run: |
           PYPI_USERNAME=${{ secrets.PYPI_USERNAME }} PYPI_PASSWORD=${{ secrets.PYPI_PASSWORD }} python do.py release
       - name: Create release and publish artifacts
-        if: steps.check_tag.outputs.exists == 'false' && matrix.python-version == '3.6'
+        if: steps.check_tag.outputs.exists == 'false' && matrix.python-version == '3.12'
         uses: ncipollo/release-action@v1
         with:
           artifacts: "dist/*"
